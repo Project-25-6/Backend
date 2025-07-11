@@ -6,7 +6,7 @@ services:
     container_name: mysqldb
     ports:
       - "3307:3306"
-    env_file: "calendar.env"
+    env_file: "backend.env"
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
@@ -23,7 +23,7 @@ services:
     container_name: calendar
     ports:
       - "8081:8081"
-    env_file: "calendar.env"
+    env_file: "backend.env"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
