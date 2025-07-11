@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysqldb
+    ports:
+      - "3307:3306"
+    env_file: "calendar.env"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - calendar
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  calendar:
+    build: .
+    container_name: calendar
+    ports:
+      - "8081:8081"
+    env_file: "calendar.env"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - calendar
+
+volumes:
+  mysql-data:
+
+networks:
+  calendar:
