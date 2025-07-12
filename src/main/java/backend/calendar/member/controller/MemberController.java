@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/member")
 public class MemberController {
 
+    //test
     @GetMapping("/hello")
     public String hello() {
         return "Hello!";
