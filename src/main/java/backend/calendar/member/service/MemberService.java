@@ -31,7 +31,7 @@ public class MemberService {
         String profileUrlImage = requestDto.getProfileImageUrl();
 
         // 아이디 중복 확인
-        if (memberRepository.findByEmail(email).isPresent()) {
+        if (memberRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
         }
 

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository; // 엔티티 클�
 import java.util.Optional; //조회 결과가 존재 할수도 있고 존재하지 않을 수도 있는 경우에 사용
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    Optional<Member> findByEmail(String email);
-//    Optional<Member> findByUserId(Long Id);
+    boolean existsByEmail(String email);
 
 }
