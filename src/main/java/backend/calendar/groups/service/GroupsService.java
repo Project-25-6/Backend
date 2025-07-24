@@ -4,6 +4,8 @@ import backend.calendar.groups.domain.Groups;
 import backend.calendar.groups.dto.request.GroupsRequest;
 import backend.calendar.groups.dto.response.GroupsResponse;
 import backend.calendar.groups.repository.GroupsRepository;
+import backend.calendar.member.domain.Member;
+import backend.calendar.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.Group;
@@ -16,9 +18,10 @@ import java.util.UUID;
 public class GroupsService {
 
     private final GroupsRepository groupRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
-    public GroupsResponse createGroup(GroupsRequest request, String userId) {
+    public void createGroup(GroupsRequest request, Member member) {
 
         String groupType = request.getGroupType();
         String inviteCode = null;
@@ -31,17 +34,11 @@ public class GroupsService {
                 .name(request.getName())
                 .groupType(groupType)
                 .inviteCode(inviteCode)
-                .userId(userId)
+                .member(member)
                 .build();
 
-        Groups savedGroup = groupRepository.save(group);
+        groupRepository.save(group);
 
-        return GroupsResponse.builder()
-                .groupId(savedGroup.getId())
-                .name(savedGroup.getName())
-                .groupType(savedGroup.getGroupType())
-                .inviteCode(savedGroup.getInviteCode())
-                .build();
     }
 
     private String generateInviteCode() {

@@ -3,6 +3,7 @@ package backend.calendar.groups.controller;
 import backend.calendar.groups.dto.request.GroupsRequest;
 import backend.calendar.groups.dto.response.GroupsResponse;
 import backend.calendar.groups.service.GroupsService;
+import backend.calendar.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,10 @@ public class GroupsController {
     private final GroupsService groupsService;
 
     @PostMapping
-    public ResponseEntity<GroupsResponse> createGroup(@RequestBody GroupsRequest request,
-                                         @AuthenticationPrincipal String userId) {
+    public ResponseEntity<String> createGroup(@RequestBody GroupsRequest request,
+                                                      @AuthenticationPrincipal Member member) {
 
-        GroupsResponse response = groupsService.createGroup(request, userId);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        groupsService.createGroup(request, member);
+        return ResponseEntity.ok("그룹 생성 완료");
     }
 }

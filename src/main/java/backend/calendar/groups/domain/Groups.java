@@ -1,5 +1,6 @@
 package backend.calendar.groups.domain;
 
+import backend.calendar.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,8 +19,9 @@ public class Groups {
     @Column(name = "Group_ID")
     private Long id;
 
-    @Column(name = "User_ID")
-    private String userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column(name = "Group_Name")
     private String name;
