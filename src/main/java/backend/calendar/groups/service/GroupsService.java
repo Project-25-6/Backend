@@ -4,6 +4,7 @@ import backend.calendar.groups.domain.Groups;
 import backend.calendar.groups.dto.request.GroupsRequest;
 import backend.calendar.groups.dto.response.GroupsResponse;
 import backend.calendar.groups.repository.GroupsRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.Group;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class GroupsService {
 
     private final GroupsRepository groupRepository;
 
+    @Transactional
     public GroupsResponse createGroup(GroupsRequest request, String userId) {
 
         String groupType = request.getGroupType();

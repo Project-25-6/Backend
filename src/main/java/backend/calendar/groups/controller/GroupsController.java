@@ -22,18 +22,11 @@ public class GroupsController {
     private final GroupsService groupsService;
 
     @PostMapping
-    public ResponseEntity<?> createGroup(@RequestBody GroupsRequest request,
+    public ResponseEntity<GroupsResponse> createGroup(@RequestBody GroupsRequest request,
                                          @AuthenticationPrincipal String userId) {
 
         GroupsResponse response = groupsService.createGroup(request, userId);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                Map.of(
-                        "status", 201,
-                        "code", "GROUP_CREATED",
-                        "message", "그룹이 성공적으로 생성되었습니다.",
-                        "data", response
-                )
-        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

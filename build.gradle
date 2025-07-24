@@ -29,6 +29,8 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     runtimeOnly 'com.mysql:mysql-connector-j'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation' //유효성 검사 의존성 추가
+    annotationProcessor 'org.projectlombok:lombok' // getset 실제로 코드를 생성하는 역할
 }
 
 tasks.named('test') {
