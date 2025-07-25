@@ -3,7 +3,6 @@ package backend.calendar.groups.service;
 import backend.calendar.groups.domain.Groups;
 import backend.calendar.groups.dto.request.GroupsRequest;
 import backend.calendar.groups.dto.response.GroupsResponse;
-import backend.calendar.groups.dto.response.GroupsSearchResponse;
 import backend.calendar.groups.repository.GroupsRepository;
 import backend.calendar.member.domain.Member;
 import backend.calendar.member.repository.MemberRepository;
@@ -44,9 +43,9 @@ public class GroupsService {
 
     }
 
-    public List<GroupsSearchResponse> searchGroups(String keyword) {
+    public List<GroupsResponse.GroupsSearchResponse> searchGroups(String keyword) {
         return groupRepository.findByNameContaining(keyword).stream()
-                .map(group -> new GroupsSearchResponse(
+                .map(group -> new GroupsResponse.GroupsSearchResponse(
                         group.getId(),
                         group.getName(),
                         group.getGroupType()))

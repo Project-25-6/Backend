@@ -1,9 +1,6 @@
 package backend.calendar.groups.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
@@ -15,4 +12,12 @@ public class GroupsResponse {
     private String name;
     private String groupType;
     private String inviteCode;
+
+    @Getter
+    @AllArgsConstructor
+    public static class GroupsSearchResponse {
+        private Long groupId;
+        private String name;
+        private String groupType; // "public" or "personal"
+    }
 }
