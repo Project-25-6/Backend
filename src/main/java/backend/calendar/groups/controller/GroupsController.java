@@ -2,6 +2,7 @@ package backend.calendar.groups.controller;
 
 import backend.calendar.groups.dto.request.GroupsRequest;
 import backend.calendar.groups.dto.response.GroupsResponse;
+import backend.calendar.groups.dto.response.GroupsSearchResponse;
 import backend.calendar.groups.service.GroupsService;
 import backend.calendar.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class GroupsController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<GroupsResponse.GroupsSearchResponse>> searchGroups(@RequestParam String keyword) {
+    public ResponseEntity<List<GroupsSearchResponse>> searchGroups(@RequestParam String keyword) {
         return ResponseEntity.ok(groupsService.searchGroups(keyword));
     }
 }
