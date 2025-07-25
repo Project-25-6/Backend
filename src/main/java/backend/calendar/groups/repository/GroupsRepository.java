@@ -4,6 +4,7 @@ import backend.calendar.groups.domain.Groups;
 import org.apache.catalina.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface GroupsRepository extends JpaRepository<Groups, Long> {
@@ -11,4 +12,7 @@ public interface GroupsRepository extends JpaRepository<Groups, Long> {
     boolean existsByName(String name);
 
     Optional<Groups> findByInviteCode(String inviteCode);
+
+    List<Groups> findByNameContaining(String keyword);
 }
+
