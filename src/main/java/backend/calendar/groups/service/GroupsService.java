@@ -3,6 +3,7 @@ package backend.calendar.groups.service;
 import backend.calendar.groups.domain.Groups;
 import backend.calendar.groups.dto.request.GroupsRequest;
 import backend.calendar.groups.dto.response.GroupsResponse;
+import backend.calendar.groups.dto.response.GroupsSearchResponse;
 import backend.calendar.groups.repository.GroupsRepository;
 import backend.calendar.member.domain.Member;
 import backend.calendar.member.repository.MemberRepository;
@@ -11,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.Group;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +42,15 @@ public class GroupsService {
 
         groupRepository.save(group);
 
+    }
+
+    public List<GroupsSearchResponse> searchGroups(String keyword) {
+        return groupRepository.findByNameContaining(keyword).stream()
+                .map(group -> new GroupsSearchResponse(
+                        group.getId(),
+                        group.getName(),
+                        group.getGroupType()))
+                .collect(Collectors.toList());
     }
 
     private String generateInviteCode() {

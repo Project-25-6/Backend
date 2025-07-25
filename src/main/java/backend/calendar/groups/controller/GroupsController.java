@@ -2,17 +2,16 @@ package backend.calendar.groups.controller;
 
 import backend.calendar.groups.dto.request.GroupsRequest;
 import backend.calendar.groups.dto.response.GroupsResponse;
+import backend.calendar.groups.dto.response.GroupsSearchResponse;
 import backend.calendar.groups.service.GroupsService;
 import backend.calendar.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,5 +27,10 @@ public class GroupsController {
 
         groupsService.createGroup(request, member);
         return ResponseEntity.ok("그룹 생성 완료");
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<GroupsSearchResponse>> searchGroups(@RequestParam String keyword) {
+        return ResponseEntity.ok(groupsService.searchGroups(keyword));
     }
 }
