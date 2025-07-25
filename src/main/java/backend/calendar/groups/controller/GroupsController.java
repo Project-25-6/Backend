@@ -23,7 +23,7 @@ public class GroupsController {
 
     @PostMapping
     public ResponseEntity<String> createGroup(@RequestBody GroupsRequest request,
-                                                      @AuthenticationPrincipal Member member) {
+                                                     @AuthenticationPrincipal Member member) {
 
         groupsService.createGroup(request, member);
         return ResponseEntity.ok("그룹 생성 완료");
