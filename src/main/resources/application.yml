@@ -19,6 +19,10 @@ spring:
       hibernate:
         format_sql: true
 
+  jwt:
+    secret:
+      key : ${JWT_SECRET_KEY}
+
   mvc:
     servlet:
       path: /api/v1
