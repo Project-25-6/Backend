@@ -19,7 +19,7 @@ public class Member {
     @Column(nullable = false,unique = true, length=20)
     private String email;
     //비밀번호
-    @Column(nullable = false,length = 30)
+    @Column(nullable = false,length = 255)
     private String password;
     //프로필 이미지
     @Column(nullable = true,length = 20)

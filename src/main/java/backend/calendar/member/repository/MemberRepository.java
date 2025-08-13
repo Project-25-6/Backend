@@ -7,5 +7,5 @@ import java.util.Optional; //조회 결과가 존재 할수도 있고 존재하�
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByEmail(String email);
-
+    Optional<Member> findByEmail(String email);
 }
