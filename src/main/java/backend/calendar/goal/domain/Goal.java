@@ -2,6 +2,7 @@ package backend.calendar.goal.domain;
 
 import backend.calendar.goal.domain.enums.GoalDifficulty;
 import backend.calendar.goal.domain.enums.GoalType;
+import backend.calendar.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,12 @@ public class Goal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "goal_id")
+    @Column(name = "goal_id", nullable = false)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
     @Column(nullable = false, length = 30)
     private String goalName;

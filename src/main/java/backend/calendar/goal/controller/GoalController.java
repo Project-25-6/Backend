@@ -1,14 +1,14 @@
 package backend.calendar.goal.controller;
 import backend.calendar.goal.domain.enums.GoalDifficulty;
 import backend.calendar.goal.dto.request.GoalRequest;
+import backend.calendar.goal.dto.response.GoalResponse;
+import backend.calendar.goal.dto.response.MyGoalResponse;
 import backend.calendar.goal.service.GoalService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -27,5 +27,14 @@ public class GoalController {
         return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 
     }
+
+    @GetMapping
+    public ResponseEntity<List<MyGoalResponse>> getMyGoals(@RequestParam Long memberId){
+
+        List<MyGoalResponse> response = goalService.findMyGoals(memberId);
+        return ResponseEntity.ok(response);
+
+    }
+
 
 }
