@@ -36,5 +36,13 @@ public class GoalController {
 
     }
 
+    @DeleteMapping("/{goalId}")
+    public ResponseEntity<String> deleteGoal(@PathVariable Long goalId, @RequestParam Long memberId) {
+        goalService.deleteGoal(goalId,memberId);
+        return ResponseEntity.ok("목표가 삭제되었습니다.");
+
+    }
+
+
 
 }
