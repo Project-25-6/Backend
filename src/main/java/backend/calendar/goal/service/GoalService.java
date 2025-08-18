@@ -51,6 +51,21 @@ public class GoalService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public void deleteGoal(Long memberId, Long goalId) {
+
+        // 1. 삭제할 목표를 DB에서 조회합니다.
+        Goal goal = goalRepository.findById(goalId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 목표를 찾을 수 없습니다."));
+
+        // 2. 요청을 보낸 사용자와 목표의 주인이 같은지 확인합니다.
+        if (!goal.getMember().getId().equals(memberId)) {
+            throw new IllegalArgumentException("본인의 목표만 삭제할 수 있습니다.");
+        }
+
+        // 3. 확인이 끝나면, 목표를 삭제합니다.
+        goalRepository.delete(goal);
+    }
 
 
 }
